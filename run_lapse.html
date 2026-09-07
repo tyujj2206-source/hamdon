@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" manifest="cache.appcache">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>العقاب | Lapse Chain</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page-glow glow-one"></div>
+<div class="page-glow glow-two"></div>
+
+<div class="shell compact-shell">
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-logo">AQ</div>
+            <div class="brand-text">
+                <span class="brand-name">العقاب | PS4 Host</span>
+                <span class="brand-sub">تعديل وبرمجة البلايستيشن</span>
+            </div>
+        </div>
+        <div class="badge badge-lapse">LAPSE CHAIN</div>
+    </header>
+
+    <main class="wrap run-wrap">
+        <section class="run-card">
+            <div class="run-icon">⚡</div>
+            <div class="eyebrow">AL-OQAB ENGINE</div>
+            <h1 class="hero-title">Lapse <span class="accent">Exploit</span></h1>
+            <p class="hero-sub">للإصدارات من 11.00 لحد 12.02</p>
+
+            <section class="status-panel run-status">
+                <div class="status-label">حالة التشغيل</div>
+                <span id="state" class="status-text loading">⏳ بنحمّل الملفات، ثانية واحدة...</span>
+                <br>
+                <button id="retry" class="btn hidden" type="button">↻ جرّب تاني</button>
+            </section>
+
+            <div class="run-tip">سيب الصفحة مفتوحة لحد ما حالة التشغيل تتغير.</div>
+            <div id="out" style="display:none;"></div>
+        </section>
+    </main>
+
+    <footer class="foot">
+        <div class="foot-brand">العقاب</div>
+        <p>📞 <strong>للتواصل:</strong> +201155029529</p>
+    </footer>
+</div>
+
+<script type="module">
+    var started = false;
+
+    function boot() {
+        if (started) return;
+        started = true;
+
+        import("./chain_lapse.js").catch(function(e) {
+            var stateEl = document.getElementById("state");
+            stateEl.innerHTML = "❌ التشغيل وقف: " + (e && e.message ? e.message : e);
+            stateEl.className = "status-text error";
+
+            var btn = document.getElementById("retry");
+            if (btn) btn.className = "btn";
+        });
+    }
+
+    function bootSettled() {
+        setTimeout(boot, 1200);
+    }
+
+    var appCache = window.applicationCache;
+
+    if (appCache) {
+        appCache.addEventListener('cached', bootSettled, false);
+        appCache.addEventListener('noupdate', bootSettled, false);
+        appCache.addEventListener('error', bootSettled, false);
+        appCache.addEventListener('obsolete', bootSettled, false);
+        setTimeout(bootSettled, 6000);
+    } else {
+        bootSettled();
+    }
+
+    document.getElementById("retry").addEventListener("click", function() {
+        location.reload();
+    }, false);
+
+    window.addEventListener("error", function(e) {
+        var stateEl = document.getElementById("state");
+
+        if (stateEl && stateEl.textContent.indexOf("⏳") !== -1) {
+            stateEl.innerHTML = "❌ حصل خطأ: " + (e && e.message ? e.message : "Script error");
+            stateEl.className = "status-text error";
+        }
+    }, false);
+</script>
+</body>
+</html>

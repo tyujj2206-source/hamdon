@@ -1,0 +1,36 @@
+CACHE MANIFEST
+# AL-OQAB PS4 HOST
+# build-2026-09-07-v2
+#
+# مهم: غيّر سطر build فوق كل مرة تعدّل أي ملف
+# عشان المتصفح يعرف إن فيه نسخة كاش جديدة.
+
+CACHE:
+index.html
+run_lapse.html
+run_poops.html
+style.css
+image_15d165.jpg
+
+chain_lapse.js
+chain_poops.js
+core.js
+mem.js
+int64.js
+ps4_offsets.js
+rpc_worker.js
+
+logo_raw.png
+payload.bin
+
+patches/1100.bin
+patches/1150.bin
+patches/1200.bin
+patches/1250.bin
+patches/1300.bin
+
+# لو الكود بيطلب النسخة دي بالـ query string، سيبها موجودة.
+core.js?v=10
+
+NETWORK:
+*
